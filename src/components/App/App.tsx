@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 
-import { FeedbackOptional, Section, Statistics } from 'components';
+import { FeedbackOptional, Notification, Section, Statistics } from 'components';
 
-interface IState {
-  good: number;
-  bad: number;
-  neutral: number;
-}
+import { IState } from 'types/statisticsState';
 
 const initialState: IState = {
   good: 0,
@@ -16,14 +12,42 @@ const initialState: IState = {
 
 export const App: React.FC = () => {
   const [state, setState] = useState<IState>(initialState);
+  const { good, neutral, bad } = state;
+
+  const onClickAction = (id: keyof IState): void => {
+    setState((prevState: IState) => {
+      return { ...prevState, [id]: prevState[id] + 1 };
+    });
+  };
+
+  const calcTotalFeedback = (): number => {
+    return good + neutral + bad;
+  };
+
+  const calcPercentagePositiveFeedback = (total: number): number => {
+    return Math.round((good / total) * 100);
+  };
+
+  const total = calcTotalFeedback();
+  const percentage = calcPercentagePositiveFeedback(total);
 
   return (
     <main>
       <Section title='Please leave feedback'>
-        <FeedbackOptional />
+        <FeedbackOptional onClickAction={onClickAction} />
       </Section>
       <Section title='Statistics'>
-        <Statistics />
+        {!total ? (
+          <Notification />
+        ) : (
+          <Statistics
+            good={good}
+            neutral={neutral}
+            bad={bad}
+            total={total}
+            percentage={percentage}
+          />
+        )}
       </Section>
     </main>
   );

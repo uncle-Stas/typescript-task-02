@@ -1,11 +1,24 @@
 import React from 'react';
 
-export const FeedbackOptional: React.FC = () => {
+import { IState } from 'types/statisticsState';
+import { Btn } from './FeedbackOptional.styled';
+
+interface IProp {
+  onClickAction: (id: keyof IState) => void;
+}
+
+export const FeedbackOptional: React.FC<IProp> = ({ onClickAction }) => {
   return (
     <>
-      <button type='button'>Good</button>
-      <button type='button'>Neutral</button>
-      <button type='button'>Bad</button>
+      <Btn type='button' onClick={() => onClickAction('good')}>
+        Good
+      </Btn>
+      <Btn type='button' onClick={() => onClickAction('neutral')}>
+        Neutral
+      </Btn>
+      <Btn type='button' onClick={() => onClickAction('bad')}>
+        Bad
+      </Btn>
     </>
   );
 };

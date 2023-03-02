@@ -1,17 +1,18 @@
-import React from "react";
+import React from 'react';
+import { Container, SectionStyled, Title } from './Section.styled';
 
-interface IProp{
+interface IProp {
   title: string;
   children: React.ReactNode;
 }
 
-export const Section: React.FC<IProp> = ({children, title}) => {
+export const Section: React.FC<IProp> = ({ children, title }) => {
   return (
-    <section>
-      <div>
-        <h2>{ title}</h2>
+    <SectionStyled>
+      <Container>
+        <Title>{title}</Title>
         {children}
-      </div>
-    </section>
-  )
-}
+      </Container>
+    </SectionStyled>
+  );
+};
