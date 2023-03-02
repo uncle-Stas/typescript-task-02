@@ -1,4 +1,4 @@
-import '@csstools/nolmalize.css'; /* bring in normalize.css styles */
+import '@csstools/normalize.css'; /* bring in normalize.css styles */
 import 'index.css'; /* reset default styles, added basic styles*/
 
 import React from 'react';
